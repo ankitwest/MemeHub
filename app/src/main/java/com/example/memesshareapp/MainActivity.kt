@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    var currentMemeUrl: String? = null
+    var currentImageUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         nextButton.isEnabled = false
         shareButton.isEnabled = false
         progressBar.visibility = View.VISIBLE
-      //  val queue = Volley.newRequestQueue(this)
+         //  val queue = Volley.newRequestQueue(this)      no need now becoz MySingleton will be used
         val url = "https://meme-api.herokuapp.com/gimme"     // url from reddit which provides random meme every time we refresh
 
         // Request a string response from the provided URL.
@@ -81,13 +81,13 @@ class MainActivity : AppCompatActivity() {
             })
 
            // Add the request to the RequestQueue.
-        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)       //Getting the queue from MySingleton
     }
 
     fun shareMeme(view: View) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type="text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, "Hey, Checkout this cool meme I got from Reddit $currentMemeUrl ")
+        intent.putExtra(Intent.EXTRA_TEXT, "Hey, Checkout this cool meme I got from Reddit $currentImageUrl ")
 
         //val chooser = Intent.createChooser(intent,"Share this meme thing...")
         startActivity(Intent.createChooser(intent,"Share this meme thing..."))
